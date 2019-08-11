@@ -3,19 +3,25 @@ import classes from './BuildControls.module.css';
 import BuildControl from './BuildControl/BuildControl';
 
 const controls = [
-    {label: 'Salad', typs: 'salad'},
-    {label: 'Bacon', typs: 'bacon'},
-    {label: 'Cheese', typs: 'cheese'},
-    {label: 'Meat', typs: 'meat'}
+    {label: 'Salad', type: 'salad'},
+    {label: 'Bacon', type: 'bacon'},
+    {label: 'Cheese', type: 'cheese'},
+    {label: 'Meat', type: 'meat'}
 ];
 
-const buildControlsTransformed = controls.map (cont => {
-    return <BuildControl key={cont.label} label={cont.label} />
-});
+
 
 const buildControls = (props) => (
     <div className={classes.BuildControls}>
-        {buildControlsTransformed}
+        {
+            controls.map (cont => {
+                return <BuildControl 
+                        disabled={props.disabled[cont.type]}
+                        ingredientRemoved={() => props.ingredientRemoved(cont.type)} 
+                        ingredientAdded={() => props.ingredientAdded(cont.type)} 
+                        key={cont.label} label={cont.label} />
+            }) 
+        }
     </div>
 );
 export default buildControls; 
