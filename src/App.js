@@ -1,14 +1,29 @@
-import React from 'react';
-import Layout from './components/Layout/Layout';
+import React, {Component} from 'react';
+import Layout from './hoc/Layout/Layout';
 import BuilderBuilder from './containers/BurgerBuilder/BurgerBuilder';
-function App() {
-  return (
-    <div>
-      <Layout>
-        <BuilderBuilder></BuilderBuilder>
-      </Layout>
-    </div>
-  );
+class App extends Component {
+
+  state = {
+    show: true
+  }
+
+  componentDidMount () {
+    // setTimeout(() => {
+    //   this.setState({show: false});
+    // } , 5000);
+  }
+
+  render () {
+    return (
+      <div>
+        <Layout>
+          {this.state.show ? <BuilderBuilder></BuilderBuilder> : null }
+        </Layout>
+      </div>
+    );
+  }
+
+
 }
 
 export default App;
