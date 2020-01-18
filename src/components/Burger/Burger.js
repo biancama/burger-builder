@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
-
+import { withRouter } from 'react-router-dom';
 const burger = (props) => {
-   
+   console.log(props);
     let transformedIngredientsKeyValues = Object.entries(props.ingredients)
         .map(([key, val]) => {  
             const indexes = [...Array(val).keys()];
@@ -11,7 +11,7 @@ const burger = (props) => {
                 return <BurgerIngredient key={key + i} type={key} />
             });
         }).flatMap(x => x); 
-    console.log(transformedIngredientsKeyValues);
+    //console.log(transformedIngredientsKeyValues);
     if (transformedIngredientsKeyValues.length === 0) {
         transformedIngredientsKeyValues = <p>Please add some ingredients!!!</p>
     }
@@ -25,4 +25,4 @@ const burger = (props) => {
     )
 }
 
-export default burger;
+export default withRouter(burger);
