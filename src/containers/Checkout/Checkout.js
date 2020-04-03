@@ -18,7 +18,8 @@ class Checkout extends Component {
 
     
     render() {
-        let summary = <Redirect to="/" /> 
+        let summary = <Redirect to="/pippo" /> 
+        console.log('Checkout: ' + this.props.ingredients + ' ' + this.props.purchased + ' ' + (this.props.ingredients && !this.props.purchased));
         if (this.props.ingredients && !this.props.purchased) {
             summary = (                
                 <div>

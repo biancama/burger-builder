@@ -101,9 +101,10 @@ class ContactData extends Component {
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.totalPrice,
-            orderData: formData
+            orderData: formData,
+            userId: this.props.userId
         }
-        this.props.onOrderBurger(order);
+        this.props.onOrderBurger(order, this.props.token);
     }
     checkValidity (value, rules) {
         let isValid = true;
@@ -154,7 +155,7 @@ class ContactData extends Component {
             {formElementsArray.map(element => (
                 <Input key={element.id} 
                     elementType={element.config.elementType} 
-                    elementConfig={element.config.elementConfig} value={element.config.value} onChange={(event) => this.inputChangeHandler(event, element.id)}
+                    elementConfig={element.config.elementConfig} value={element.config.value} changed={(event) => this.inputChangeHandler(event, element.id)}
                     invalid={!element.config.valid} shouldValidate={element.config.validation}
                     touched={element.config.touched}
                     />
@@ -177,12 +178,14 @@ const mapStateToProps = (state) => {
     return {
         ingredients: state.burgerBuilder.ingredients,
         totalPrice: state.burgerBuilder.totalPrice,
-        loading: state.order.loading
+        loading: state.order.loading,
+        token: state.auth.token,
+        userId: state.auth.userId
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        onOrderBurger: (orderData) => dispatch(actionCreators.purchaseBurger(orderData))
+        onOrderBurger: (orderData, token) => dispatch(actionCreators.purchaseBurger(orderData, token))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, Axios));
