@@ -11,7 +11,12 @@ import orderReducer from './store/reducers/order';
 import authReducer from './store/reducers/auth'
 import thunk from 'redux-thunk';
 
-const composeEnhancers = process.env.NODE_ENV !== 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true }) :null || compose ;
+const composeEnhancers =
+typeof window === 'object' &&
+window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+// Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+}) : compose;
 
 const rootReducer = combineReducers({
 	burgerBuilder: burgerBuilderReducer,
